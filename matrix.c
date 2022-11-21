@@ -89,8 +89,8 @@ int main() {
   
   // 3. Create pthread_t objects for our threads.
   pthread_t threads_p[MAX];
-  pthread_t threads_s[MAX];
-  pthread_t threads_d[MAX];
+  pthread_t threads_s[MAX*MAX];
+  pthread_t threads_d[MAX*MAX];
   
   // 4. Create a thread for each cell of each matrix operation.
   int x, y;
@@ -110,7 +110,7 @@ int main() {
       int* coord_ptr_s = malloc(2*sizeof(int));
       coord_ptr_s[0] = a;
       coord_ptr_s[1] = b;
-      pthread_create(&threads_s[a], NULL, computeSum, (void *)coord_ptr_s);
+      pthread_create(&threads_s[a+b], NULL, computeSum, (void *)coord_ptr_s);
     }
   }
 
@@ -123,7 +123,7 @@ int main() {
       int* coord_ptr_d = malloc(2*sizeof(int));
       coord_ptr_d[0] = a;
       coord_ptr_d[1] = b;
-      pthread_create(&threads_d[a], NULL, computeDiff, (void *)coord_ptr_d);
+      pthread_create(&threads_d[a+b], NULL, computeDiff, (void *)coord_ptr_d);
     }
   }
 

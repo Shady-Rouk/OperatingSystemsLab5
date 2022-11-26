@@ -105,9 +105,11 @@ int main() {
   }
 
   int a, b;
+	int* coord_ptr_s;
+	int* coord_ptr_d;
   for (a=0; a<MAX; a++) {
     for (b=0; b<MAX; b++) {
-      int* coord_ptr_s = malloc(2*sizeof(int));
+      coord_ptr_s = malloc(2*sizeof(int));
       coord_ptr_s[0] = a;
       coord_ptr_s[1] = b;
       pthread_create(&threads_s[a+b], NULL, computeSum, (void *)coord_ptr_s);
@@ -120,7 +122,7 @@ int main() {
   
   for (a=0; a<MAX; a++) {
     for (b=0; b<MAX; b++) {
-      int* coord_ptr_d = malloc(2*sizeof(int));
+      coord_ptr_d = malloc(2*sizeof(int));
       coord_ptr_d[0] = a;
       coord_ptr_d[1] = b;
       pthread_create(&threads_d[a+b], NULL, computeDiff, (void *)coord_ptr_d);
